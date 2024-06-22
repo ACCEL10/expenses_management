@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:expenses_management/screens/wrapper.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class SplashScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image(
-              image: AssetImage("assets/images/UTMDASH_LOGO-removebg.png"),
+              image: AssetImage("assets\tBZ9t8k.png"),
             ),
             SizedBox(
               height: 20,
