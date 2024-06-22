@@ -10,9 +10,7 @@ class IntroPage extends StatefulWidget {
 
 class _IntroPageState extends State<IntroPage> {
   final List<String> images = [
-    "assets/images/UTMDASH_LOGO.png",
-    "assets/images/SecPic.png",
-    "assets/images/register.png",
+    "assets\tBZ9t8k.png",
   ];
 
   final List<Widget> texts = [
@@ -27,7 +25,7 @@ class _IntroPageState extends State<IntroPage> {
         ),
         children: [
           TextSpan(
-            text: 'Welcome to Our App \n Let\'s get to know UTMDASH',
+            text: 'Welcome to Our App \n Let\'s get to know Money Management',
             style: TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.bold,
@@ -35,7 +33,7 @@ class _IntroPageState extends State<IntroPage> {
           ),
           TextSpan(
             text:
-                "\n\n Our app helps you get your package easily from NINJAVAN ANGKASA hub.\nIf you are too busy to pick it up, we will send it to you.\nSave time, stay organized and receive your package without any hassle!",
+                "\n\n Our app helps you manage your monthly expenses.\nIf you are too busy to pick it up, we will send it to you.\nSave time, stay organized and receive your package without any hassle!",
           ),
         ],
       ),

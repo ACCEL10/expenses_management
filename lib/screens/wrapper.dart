@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:expenses_management/screens/auth/HomePage.dart';
+import 'package:expenses_management/screens/auth/homepage.dart';
 import 'package:expenses_management/models/user.dart';
 import 'package:expenses_management/services/f_database.dart';
 import 'package:provider/provider.dart';

@@ -7,13 +7,13 @@ class DatabaseService {
 
   //collection reference
   final CollectionReference usersCollection =
-      FirebaseFirestore.instance.collection('Users');
+      FirebaseFirestore.instance.collection('User');
 
-  final CollectionReference parcelsCollection =
+  final CollectionReference expensesCollection =
       FirebaseFirestore.instance.collection('Expenses');
 
-  final CollectionReference deliveryRequestsCollection =
-      FirebaseFirestore.instance.collection('Statistics');
+  final CollectionReference statisticCollection =
+      FirebaseFirestore.instance.collection('Statistic');
 
   Future<void> updateFcmToken(String fcmToken) async {
     try {
@@ -39,23 +39,6 @@ class DatabaseService {
       'Role': role,
       'FCMToken': '',
     });
-  }
-
-  List<UserObject> _objectFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.docs
-        .map((doc) {
-          final data = doc.data() as Map<String, dynamic>?;
-
-          if (data != null) {
-            return UserObject(
-              fullName: data['fullName'],
-              phoneNumber: data['phoneNumber'],
-              emailAddress: data['emailAddress'],
-            );
-          }
-        })
-        .whereType<UserObject>()
-        .toList();
   }
 
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {

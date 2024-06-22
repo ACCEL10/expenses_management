@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
       decoration: BoxDecoration(
         color: myColor,
         image: DecorationImage(
-          image: const AssetImage("assets/images/UTMDASH_LOGO-removebg.png"),
+          image: const AssetImage("assets\tBZ9t8k.png"),
           fit: BoxFit.cover,
           colorFilter:
               ColorFilter.mode(myColor.withOpacity(0.2), BlendMode.dstATop),
@@ -65,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
           Transform.translate(
             offset: Offset(0, -70),
             child: Image.asset(
-              "assets/images/UTMDASH_LOGO.png", // Update with the actual path to your image
+              ".assets\tBZ9t8k.png", // Update with the actual path to your image
               height: 400, // Set the desired height
               width: 400, // Set the desired width
             ),
@@ -150,9 +150,7 @@ class _LoginPageState extends State<LoginPage> {
         }
         return null;
       },
-      decoration: InputDecoration(
-          // Existing decoration...
-          ),
+      decoration: InputDecoration(),
     );
   }
 
@@ -192,7 +190,7 @@ class _LoginPageState extends State<LoginPage> {
             context: context,
             builder: (context) => Center(
               child: CircularProgressIndicator(
-                color: Colors.red.shade300,
+                color: const Color.fromARGB(255, 128, 229, 115),
               ),
             ),
           );
@@ -212,7 +210,7 @@ class _LoginPageState extends State<LoginPage> {
         }
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: Color(0xFFBE1C2D),
+        backgroundColor: Color.fromARGB(255, 0, 255, 21),
         shape: const StadiumBorder(),
         elevation: 20,
         shadowColor: myColor,
