@@ -5,7 +5,7 @@ class DatabaseService {
   final String uid;
   DatabaseService({required this.uid});
 
-  //collection reference
+  // Collection reference
   final CollectionReference usersCollection =
       FirebaseFirestore.instance.collection('User');
 
@@ -30,13 +30,12 @@ class DatabaseService {
     });
   }
 
-  Future createUserData(String fullName, String phoneNumber,
-      String emailAddress, String role) async {
-    return await usersCollection.doc(uid).update({
+  Future createUserData(
+      String fullName, String phoneNumber, String emailAddress) async {
+    return await usersCollection.doc(uid).set({
       'fullName': fullName,
       'phoneNumber': phoneNumber,
       'emailAddress': emailAddress,
-      'Role': role,
       'FCMToken': '',
     });
   }
@@ -54,6 +53,4 @@ class DatabaseService {
   Stream<UserData> get userDataStream {
     return usersCollection.doc(uid).snapshots().map(_userDataFromSnapshot);
   }
-
-  fetchedUserRoleFromFirestore() {}
 }

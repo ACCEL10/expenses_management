@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:expenses_management/screens/wrapper.dart';
+import 'package:expenses_management/intropage.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -9,7 +9,7 @@ class SplashScreen extends StatelessWidget {
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (_) => const Wrapper(),
+          builder: (_) => const IntroPage(),
         ),
       );
     });
@@ -29,7 +29,7 @@ class SplashScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image(
-              image: AssetImage("assets\tBZ9t8k.png"),
+              image: AssetImage("assets/images/expenses.png"),
             ),
             SizedBox(
               height: 20,
