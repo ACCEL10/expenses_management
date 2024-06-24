@@ -8,12 +8,55 @@ class StatisticPage extends StatefulWidget {
 }
 
 class _StatisticPageState extends State<StatisticPage> {
-  Future<List<Map<String, dynamic>>> _fetchExpenses() async {
-    QuerySnapshot snapshot =
-        await FirebaseFirestore.instance.collection('Expenses').get();
-    return snapshot.docs
-        .map((doc) => doc.data() as Map<String, dynamic>)
-        .toList();
+  Future<List<Map<String, dynamic>>> _fetchAndSaveExpenses() async {
+    // Fetch the latest expenses based on the date field
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('Expenses')
+        .orderBy('date', descending: true)
+        .limit(7)
+        .get();
+
+    List<Map<String, dynamic>> expenses =
+        snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+
+    // Calculate totals
+    double food = expenses
+        .map((e) => e['food'] as int)
+        .reduce((a, b) => a + b)
+        .toDouble();
+    double petrol = expenses
+        .map((e) => e['petrol'] as int)
+        .reduce((a, b) => a + b)
+        .toDouble();
+    double haircuts = expenses
+        .map((e) => e['haircuts'] as int)
+        .reduce((a, b) => a + b)
+        .toDouble();
+    double supermarket = expenses
+        .map((e) => e['supermarket'] as int)
+        .reduce((a, b) => a + b)
+        .toDouble();
+    double cafe = expenses
+        .map((e) => e['cafe'] as int)
+        .reduce((a, b) => a + b)
+        .toDouble();
+    double restaurant = expenses
+        .map((e) => e['restaurant'] as int)
+        .reduce((a, b) => a + b)
+        .toDouble();
+
+    // Save to Statistic collection
+    await FirebaseFirestore.instance.collection('Statistic').add({
+      'food': food,
+      'petrol': petrol,
+      'haircuts': haircuts,
+      'supermarket': supermarket,
+      'cafe': cafe,
+      'restaurant': restaurant,
+      'date': DateTime.now(),
+    });
+
+    return expenses;
   }
 
   @override
@@ -39,7 +82,7 @@ class _StatisticPageState extends State<StatisticPage> {
         ],
       ),
       body: FutureBuilder<List<Map<String, dynamic>>>(
-        future: _fetchExpenses(),
+        future: _fetchAndSaveExpenses(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
@@ -105,13 +148,49 @@ class _StatisticPageState extends State<StatisticPage> {
                         makeGroupData(4, cafe),
                         makeGroupData(5, restaurant),
                       ],
-                      titlesData: FlTitlesData(),
+                      titlesData: FlTitlesData(
+                        leftTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            interval: 50,
+                            getTitlesWidget: (value, meta) {
+                              return Text(
+                                value.toInt().toString(),
+                                style: TextStyle(fontSize: 10),
+                              );
+                            },
+                          ),
+                        ),
+                        bottomTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            getTitlesWidget: (double value, TitleMeta meta) {
+                              switch (value.toInt()) {
+                                case 0:
+                                  return Text('Food');
+                                case 1:
+                                  return Text('Petrol');
+                                case 2:
+                                  return Text('Haircuts');
+                                case 3:
+                                  return Text('Supermarket');
+                                case 4:
+                                  return Text('Cafe');
+                                case 5:
+                                  return Text('Restaurant');
+                                default:
+                                  return Text('');
+                              }
+                            },
+                          ),
+                        ),
+                      ),
                       borderData: FlBorderData(show: false),
                       barTouchData: BarTouchData(enabled: false),
                       gridData: FlGridData(
-                          show: true,
-                          checkToShowHorizontalLine: (value) =>
-                              value % 50 == 0),
+                        show: true,
+                        checkToShowHorizontalLine: (value) => value % 50 == 0,
+                      ),
                     ),
                   ),
                 ),
@@ -125,8 +204,22 @@ class _StatisticPageState extends State<StatisticPage> {
 
   BarChartGroupData makeGroupData(int x, double y) {
     return BarChartGroupData(
-        x: x, barRods: [BarChartRodData(toY: y, color: Colors.blue)]);
+      x: x,
+      barRods: [
+        BarChartRodData(toY: y, color: Colors.blue, width: 16),
+      ],
+    );
   }
 
-  SettingsPage() {}
+  Widget SettingsPage() {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Settings'),
+        backgroundColor: Colors.green,
+      ),
+      body: Center(
+        child: Text('Settings Page'),
+      ),
+    );
+  }
 }

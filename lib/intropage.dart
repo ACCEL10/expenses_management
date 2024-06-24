@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:expenses_management/screens/auth/LoginPage.dart';
-
 import 'package:carousel_slider/carousel_slider.dart';
 
 class IntroPage extends StatefulWidget {
+  const IntroPage({super.key});
+
   @override
   _IntroPageState createState() => _IntroPageState();
 }
 
 class _IntroPageState extends State<IntroPage> {
   final List<String> images = [
-    "assets\tBZ9t8k.png",
+    "assets/images/tBZ9t8k.png",
   ];
 
   final List<Widget> texts = [
@@ -57,7 +58,7 @@ class _IntroPageState extends State<IntroPage> {
           ),
           TextSpan(
             text:
-                "\n\n UTMDASH is an easy-to-use app for three groups: customers, drivers, and hub users. \nIf you need a delivery, use it as a customer, and you can sign up as a courier if you want to offer delivery services. \nOur app is flexible, letting you choose the role that fits your needs best.",
+                "\n\n Our app is an easy-to-use tool for managing expenses. \nSign up to start managing your finances more effectively.",
           ),
         ],
       ),
@@ -93,70 +94,30 @@ class _IntroPageState extends State<IntroPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(
+          title: const Text(
             'Sign Up',
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: Color.fromARGB(255, 130, 11, 23), // Button color
+              color: Color.fromARGB(255, 21, 130, 11), // Button color
             ),
           ),
           content: Container(
             width: MediaQuery.of(context).size.width *
                 0.3, // Adjust the width as needed
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    // Handle sign-up as Customer
-                    Navigator.pop(context); // Close the dialog
-                    // Add your logic for signing up as a Customer
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 130, 11, 23),
-                  ),
-                  child: Text('Sign Up as Customer'),
-                ),
-                SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    // Handle sign-up as Runner
-                    Navigator.pop(context); // Close the dialog
-                    // Add your logic for signing up as a Runner
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 130, 11, 23),
-                  ),
-                  child: Text('Sign Up as Runner'),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  void _showLoginMenu(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                title: Text('Customer'),
-                onTap: () {
-                  Navigator.pop(context); // Close the modal
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
-                  );
-                },
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context); // Close the dialog
+                // Add your logic for signing up as a user
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color.fromARGB(255, 11, 130, 11),
               ),
-              // Add more ListTiles for additional options
-            ],
+              child: const Text('Sign Up'),
+            ),
           ),
         );
       },
@@ -167,8 +128,8 @@ class _IntroPageState extends State<IntroPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          color: Color(0xFFBE1C2D),
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 74, 190, 28),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -193,7 +154,7 @@ class _IntroPageState extends State<IntroPage> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             if (_currentIndex == images.length - 1)
               ElevatedButton(
                 onPressed: () {
@@ -201,11 +162,11 @@ class _IntroPageState extends State<IntroPage> {
                   _showSignUpDialog(context);
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 130, 11, 23),
+                  backgroundColor: Color.fromARGB(255, 11, 130, 11),
                 ),
-                child: Text('Get Started'),
+                child: const Text('Get Started'),
               ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
@@ -221,7 +182,7 @@ class _IntroPageState extends State<IntroPage> {
 
   Widget buildDot({required int index}) {
     return Container(
-      margin: EdgeInsets.all(4),
+      margin: const EdgeInsets.all(4),
       width: 10,
       height: 10,
       decoration: BoxDecoration(
@@ -234,35 +195,27 @@ class _IntroPageState extends State<IntroPage> {
 
 class SlideItem extends StatelessWidget {
   final String image;
-  final dynamic text;
+  final Widget text;
   final bool isLastSlide;
 
-  SlideItem(
+  const SlideItem(
       {required this.image, required this.text, required this.isLastSlide});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
             image,
             height: 400,
-            width: 450,
+            width: 400,
             fit: BoxFit.contain,
           ),
-          SizedBox(height: 20),
-          text is String
-              ? Text(
-                  text,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
-                )
-              : text, // For RichText
+          const SizedBox(height: 20),
+          text,
         ],
       ),
     );

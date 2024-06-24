@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:expenses_management/screens/auth/forgetPassword.dart';
+import 'package:expenses_management/signup.dart';
 import 'package:expenses_management/services/auth.dart';
-//import 'package:utm_dash/viewCustomerPage.dart';
-//import 'package:test2/hub_page.dart'; // Adjust the import based on the actual file name
+import 'package:expenses_management/screens/auth/HomePage.dart'; // Import HomePage
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
       decoration: BoxDecoration(
         color: myColor,
         image: DecorationImage(
-          image: const AssetImage("assets\tBZ9t8k.png"),
+          image: const AssetImage("assets/images/tBZ9t8k.png"),
           fit: BoxFit.cover,
           colorFilter:
               ColorFilter.mode(myColor.withOpacity(0.2), BlendMode.dstATop),
@@ -65,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
           Transform.translate(
             offset: Offset(0, -70),
             child: Image.asset(
-              ".assets\tBZ9t8k.png", // Update with the actual path to your image
+              "assets/images/tBZ9t8k.png", // Update with the actual path to your image
               height: 400, // Set the desired height
               width: 400, // Set the desired width
             ),
@@ -116,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
           const SizedBox(height: 20),
           _buildLoginButton(),
           const SizedBox(height: 20),
-          //_buildSignUpLink(),
+          _buildSignUpLink(), // Add the signup link here
         ],
       ),
     );
@@ -205,7 +205,10 @@ class _LoginPageState extends State<LoginPage> {
             print('Error: Invalid credentials');
           } else {
             print(result.toString());
-            Navigator.pop(context);
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const HomePage()),
+            );
           }
         }
       },
@@ -217,6 +220,27 @@ class _LoginPageState extends State<LoginPage> {
         minimumSize: const Size.fromHeight(60),
       ),
       child: const Text("LOGIN", style: TextStyle(color: Colors.white)),
+    );
+  }
+
+  Widget _buildSignUpLink() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text("Don't have an account?"),
+        TextButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SignUpPage()),
+            );
+          },
+          child: const Text(
+            "Sign Up",
+            style: TextStyle(color: Colors.blue),
+          ),
+        ),
+      ],
     );
   }
 }

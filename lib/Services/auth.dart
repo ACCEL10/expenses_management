@@ -8,19 +8,17 @@ import 'package:expenses_management/services/f_database.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  //create user object
+  // Create user object based on Firebase user
   UserClass? _userFromFirebaseUser(User? user) {
     return user != null ? UserClass(uid: user.uid) : null;
   }
 
-  //Auth changes stream
-
+  // Auth change user stream
   Stream<UserClass?> get user {
     return _auth.authStateChanges().map(_userFromFirebaseUser);
   }
 
-  //with email and pass
-
+  // Sign in with email and password
   Future signIn(String email, String password, BuildContext context) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
@@ -38,8 +36,7 @@ class AuthService {
     }
   }
 
-  //register
-
+  // Register with email and password
   Future register(String email, String password, String fullName,
       String phoneNumber, BuildContext context) async {
     try {
@@ -47,7 +44,7 @@ class AuthService {
           email: email, password: password);
       User? user = result.user;
       await DatabaseService(uid: user!.uid)
-          .createUserData(fullName, phoneNumber, email, 'normal');
+          .createUserData(fullName, phoneNumber, email);
       String? fcmToken = await FirebaseMessaging.instance.getToken();
       if (fcmToken != null) {
         await DatabaseService(uid: user.uid).updateFcmToken(fcmToken);
@@ -60,6 +57,7 @@ class AuthService {
     }
   }
 
+  // Sign out
   Future signOut() async {
     try {
       return await _auth.signOut();
@@ -69,6 +67,7 @@ class AuthService {
     }
   }
 
+  // Reset password
   Future resetPassword(String email) async {
     try {
       await _auth.sendPasswordResetEmail(email: email);

@@ -2,6 +2,11 @@ class UserClass {
   final String uid;
 
   UserClass({required this.uid});
+
+  @override
+  String toString() {
+    return 'UserClass(uid: $uid)';
+  }
 }
 
 class UserData {
@@ -16,4 +21,9 @@ class UserData {
     required this.phoneNumber,
     required this.emailAddress,
   });
+
+  @override
+  String toString() {
+    return 'UserData(uid: $uid, fullName: $fullName, phoneNumber: $phoneNumber, emailAddress: $emailAddress)';
+  }
 }
